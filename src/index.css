@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+/* Oculta la barra de scroll para Chrome, Safari y Opera */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* Oculta la barra de scroll para IE, Edge y Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE y Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
