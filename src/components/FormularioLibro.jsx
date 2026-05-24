@@ -18,7 +18,7 @@ const FormularioLibro = ({ libroEdit, onSave, onCancel }) => {
   const [generos, setGeneros] = useState([]);
   
   useEffect(() => {
-    axios.get('http://localhost:3000/api/generos') 
+    axios.get('${import.meta.env.VITE_API_URL}/api/generos') 
         .then(res => setGeneros(res.data))
         .catch(err => console.error(err));
 }, []);

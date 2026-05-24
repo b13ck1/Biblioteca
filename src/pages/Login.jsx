@@ -36,7 +36,7 @@ function Login() {
     setError('');
 
     try {
-      const res = await axios.post('http://localhost:3000/api/login', credentials);
+      const res = await axios.post('${import.meta.env.VITE_API_URL}/api/login', credentials);
       if (res.data.success) {
         login(res.data.user, res.data.token);
         navigate(res.data.user.idRol === 1 ? '/admin' : '/');

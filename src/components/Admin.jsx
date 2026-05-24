@@ -26,7 +26,7 @@ const Admin = () => {
 
   const fetchLibros = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/api/libros');
+      const res = await axios.get('${import.meta.env.VITE_API_URL}/api/libros');
       setLibros(res.data);
     } catch (error) {
       console.error("Error cargando libros:", error);
@@ -38,10 +38,10 @@ const Admin = () => {
     try {
       if (libroData.idLibro) {
         // Lógica para EDITAR (PUT)
-        await axios.put(`http://localhost:3000/api/libros/${libroData.idLibro}`, libroData);
+        await axios.put(`${import.meta.env.VITE_API_URL}/api/libros/${libroData.idLibro}`, libroData);
       } else {
         // Lógica para CREAR (POST)
-        await axios.post('http://localhost:3000/api/libros', libroData);
+        await axios.post('${import.meta.env.VITE_API_URL}/api/libros', libroData);
       }
       cerrarFormulario();
       fetchLibros(); // Recargar la tabla

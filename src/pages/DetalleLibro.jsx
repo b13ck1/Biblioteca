@@ -17,7 +17,7 @@ const DetalleLibro = () => {
   useEffect(() => {
     const fetchDetalle = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/api/libros/${id}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/libros/${id}`);
         setLibro(res.data);
       } catch (error) {
         console.error('Error al cargar el detalle', error);

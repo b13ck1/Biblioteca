@@ -85,7 +85,7 @@ const showToast = (message, type = 'success') => {
   const handleResendCode = async () => {
     setIsResending(true);
     try {
-      await axios.post('http://localhost:3000/api/register/start', formData);
+      await axios.post('${import.meta.env.VITE_API_URL}/api/register/start', formData);
       showToast('¡Registro completo! Bienvenido a la biblioteca.');
     } catch (err) {
       showToast('Código reenviado con éxito.');
@@ -110,7 +110,7 @@ const showToast = (message, type = 'success') => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/api/register/start', formData);
+      const response = await axios.post('${import.meta.env.VITE_API_URL}/api/register/start', formData);
       if (response.data.success) {
         setLoading(false);
         setShowModal(true);
@@ -124,7 +124,7 @@ const showToast = (message, type = 'success') => {
 
   const handleVerifyCode = async () => {
     try {
-      await axios.post('http://localhost:3000/api/register/verify', {
+      await axios.post('${import.meta.env.VITE_API_URL}/api/register/verify', {
         correo: formData.correo,
         codigoIngresado: codigoIngresado,
       });

@@ -65,7 +65,7 @@ const Perfil = () => {
     setLoadingFavs(true);
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:3000/api/favoritos', {
+      const res = await axios.get('${import.meta.env.VITE_API_URL}/api/favoritos', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setLibrosFavoritos(res.data);
@@ -93,7 +93,7 @@ const Perfil = () => {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.put('http://localhost:3000/api/usuarios/actualizar', formData, {
+      const res = await axios.put('${import.meta.env.VITE_API_URL}/api/usuarios/actualizar', formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.data.success) {

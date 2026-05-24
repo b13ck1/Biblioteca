@@ -14,7 +14,7 @@ const GestionUsuarios = () => {
                 const token = localStorage.getItem('token');
 
                 // 2. Hacemos la petición enviando el token en los headers
-                const res = await axios.get('http://localhost:3000/api/admin/usuarios', {
+                const res = await axios.get('${import.meta.env.VITE_API_URL}/api/admin/usuarios', {
                     headers: {
                         'Authorization': `Bearer ${token}` // Formato estándar Bearer
                     }

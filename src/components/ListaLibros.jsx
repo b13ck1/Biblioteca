@@ -5,8 +5,8 @@ const ListaLibros = () => {
   const [libros, setLibros] = useState([]);
 
   useEffect(() => {
-    // Petición a tu API de Node
-    axios.get('http://localhost:3000/api/libros')
+    // Petición a API de Node
+    axios.get('${import.meta.env.VITE_API_URL}/api/libros')
       .then(response => {   
         setLibros(response.data);
       })
@@ -21,11 +21,7 @@ const ListaLibros = () => {
         <p className="text-gray-500 mt-1">Explora nuestra selección completa de libros.</p>
       </div>
       
-      {/* GRID CORREGIDO: 
-          - grid-cols-2 (móvil)
-          - md:grid-cols-3 (tablet)
-          - lg:grid-cols-5 (PC) 
-      */}
+    
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {libros.map(libro => (
           <div key={libro.idLibro} className="flex flex-col bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group">
