@@ -13,10 +13,10 @@ import Categorias from './pages/Categorias';
 import Registro from './pages/Registro';
 import Login from './pages/Login';
 import Perfil from './components/Perfil';
-import Checkout from './pages/Checkout';
+import Checkout from './pages/CheckOut';
 import { useEffect } from 'react';
 
-function App() {
+function App() {  
   useEffect(() => {
   // Al cargar o recargar el componente, fuerza el scroll al punto 0,0 de la pantalla
   window.scrollTo(0, 0);
