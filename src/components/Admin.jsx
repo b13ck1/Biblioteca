@@ -3,48 +3,41 @@ import axios from 'axios';
 import FormularioLibro from '../components/FormularioLibro';
 import { Edit, Trash2, Plus, X } from 'lucide-react';
 
+const API = import.meta.env.VITE_API_URL;
+
 const Admin = () => {
   const [libros, setLibros] = useState([]);
   const [libroEdit, setLibroEdit] = useState(null);
   const [mostrarForm, setMostrarForm] = useState(false);
 
-  // Cargar libros al entrar
   useEffect(() => {
     fetchLibros();
   }, []);
 
   const handleEditarClick = (libro) => {
-  setLibroEdit(libro);
-  setMostrarForm(true);
-  
-  // Sube al inicio de la página con una animación suave
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-    });
+    setLibroEdit(libro);
+    setMostrarForm(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const fetchLibros = async () => {
     try {
-      const res = await axios.get('${import.meta.env.VITE_API_URL}/api/libros');
+      const res = await axios.get(`${API}/api/libros`);
       setLibros(res.data);
     } catch (error) {
       console.error("Error cargando libros:", error);
     }
   };
-  
 
   const handleSave = async (libroData) => {
     try {
       if (libroData.idLibro) {
-        // Lógica para EDITAR (PUT)
-        await axios.put(`${import.meta.env.VITE_API_URL}/api/libros/${libroData.idLibro}`, libroData);
+        await axios.put(`${API}/api/libros/${libroData.idLibro}`, libroData);
       } else {
-        // Lógica para CREAR (POST)
-        await axios.post('${import.meta.env.VITE_API_URL}/api/libros', libroData);
+        await axios.post(`${API}/api/libros`, libroData);
       }
       cerrarFormulario();
-      fetchLibros(); // Recargar la tabla
+      fetchLibros();
     } catch (error) {
       alert("Error al guardar: " + error.message);
     }
@@ -59,7 +52,6 @@ const Admin = () => {
     <div className="min-h-screen bg-gray-50 p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
         
-        {/* Cabecera del Panel */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-extrabold text-gray-900">Gestión de Inventario</h1>
@@ -76,7 +68,6 @@ const Admin = () => {
           )}
         </div>
 
-        {/* Zona del Formulario (se muestra solo si mostrarForm es true) */}
         {mostrarForm && (
           <div className="mb-12 animate-in fade-in slide-in-from-top-4 duration-300">
             <div className="flex justify-end mb-2">
@@ -92,7 +83,6 @@ const Admin = () => {
           </div>
         )}
 
-        {/* Tabla de Libros */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
           <table className="w-full text-left">
             <thead className="bg-gray-50 border-b border-gray-100">
@@ -120,7 +110,7 @@ const Admin = () => {
                   <td className="px-6 py-4">
                     <div className="flex justify-center gap-2">
                       <button 
-                        onClick={() => handleEditarClick(libro)} // <--- Cambia esto
+                        onClick={() => handleEditarClick(libro)}
                         className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition"
                         title="Editar"
                       >

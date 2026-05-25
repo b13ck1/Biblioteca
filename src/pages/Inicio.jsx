@@ -81,7 +81,7 @@ const Inicio = () => {
   useEffect(() => {
     const fetchLibros = async () => {
       try {
-        const res = await axios.get('${import.meta.env.VITE_API_URL}/api/libros');
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/libros`);
         
         const agrupados = res.data.reduce((acc, libro) => {
           const cat = libro.genero || 'General';

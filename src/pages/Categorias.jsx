@@ -20,7 +20,7 @@ const Categorias = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('${import.meta.env.VITE_API_URL}/api/libros');
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/libros`);
         setLibros(res.data);
         const cats = ['Todas', ...new Set(res.data.map(l => l.genero))];
         setCategorias(cats);

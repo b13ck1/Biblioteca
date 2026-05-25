@@ -3,6 +3,8 @@ import axios from 'axios';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 
+const API = import.meta.env.VITE_API_URL;
+
 const GestionUsuarios = () => {
     const [usuarios, setUsuarios] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -10,25 +12,19 @@ const GestionUsuarios = () => {
     useEffect(() => {
         const cargarUsuarios = async () => {
             try {
-                // 1. Recuperamos el token que guardamos en el Login
                 const token = localStorage.getItem('token');
-
-                // 2. Hacemos la petición enviando el token en los headers
-                const res = await axios.get('${import.meta.env.VITE_API_URL}/api/admin/usuarios', {
+                const res = await axios.get(`${API}/api/admin/usuarios`, {
                     headers: {
-                        'Authorization': `Bearer ${token}` // Formato estándar Bearer
+                        'Authorization': `Bearer ${token}`
                     }
                 });
-
                 setUsuarios(res.data);
             } catch (error) {
                 console.error("Error al cargar usuarios:", error.response?.data?.message);
-                // Si el token expiró o es inválido, podrías redirigir al login
             } finally {
                 setLoading(false);
             }
         };
-
         cargarUsuarios();
     }, []);
 
@@ -37,7 +33,6 @@ const GestionUsuarios = () => {
             <h1 className="text-3xl font-black uppercase italic mb-8">
                 Gestión de <span className="text-indigo-600">Usuarios</span>
             </h1>
-            
             <DataTable value={usuarios} loading={loading} paginator rows={10} className="shadow-lg rounded-2xl overflow-hidden">
                 <Column field="idUsuario" header="ID" sortable />
                 <Column field="nombre" header="Nombre" sortable />

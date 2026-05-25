@@ -37,9 +37,9 @@ const CheckoutForm = ({ cart, cartTotal, onSuccess }) => {
     const crearIntent = async () => {
       try {
         const token = localStorage.getItem('token');
-        console.log('Llamando a:', '${import.meta.env.VITE_API_URL}/api/pago/crear-intent');
+        console.log('Llamando a:', `${import.meta.env.VITE_API_URL}/api/pago/crear-intent`);
         const res = await axios.post(
-          '${import.meta.env.VITE_API_URL}/api/pago/crear-intent',
+          `${import.meta.env.VITE_API_URL}/api/pago/crear-intent`,
           { total: cartTotal },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -82,7 +82,7 @@ const CheckoutForm = ({ cart, cartTotal, onSuccess }) => {
       }));
 
         await axios.post(
-          '${import.meta.env.VITE_API_URL}/api/pago/confirmar',
+          `${import.meta.env.VITE_API_URL}/api/pago/confirmar`,
           { paymentIntentId: paymentIntent.id, detalles, total: cartTotal },
           { headers: { Authorization: `Bearer ${token}` } }
         );
