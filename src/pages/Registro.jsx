@@ -101,7 +101,7 @@ const showToast = (message, type = 'success') => {
   const handleStartRegister = async (e) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
+    setLoading(true); // spinner animado
 
     if (formData.password !== confirmPassword) {
       setError('Las contraseñas no coinciden. Por favor, verifícalas.');
@@ -111,14 +111,18 @@ const showToast = (message, type = 'success') => {
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/register/start`, formData);
+      
       if (response.data.success) {
-        setLoading(false);
-        setShowModal(true);
+        setShowModal(true); // Mostramos el modal de verificación de e-mail
+        
+        setLoading(false); 
       }
     } catch (err) {
-      setLoading(false);
-      const mensajeError = err.response?.data?.message || 'Servidor no responde';
+      const mensajeError = err.response?.data?.message || 'El servidor no responde o hay un problema de conexión';
       setError(mensajeError);
+    } finally {
+      
+      setLoading(false);
     }
   };
 
