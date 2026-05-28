@@ -83,16 +83,16 @@ const showToast = (message, type = 'success') => {
   const passwordStrength = getPasswordStrength(formData.password);
 
   const handleResendCode = async () => {
-    setIsResending(true);
-    try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/register/start`, formData);
-      showToast('¡Registro completo! Bienvenido a la biblioteca.');
-    } catch (err) {
-      showToast('Código reenviado con éxito.');
-    } finally {
-      setIsResending(false);
-    }
-  };
+  setIsResending(true);
+  try {
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/register/start`, formData);
+    showToast('Código reenviado con éxito.');
+  } catch (err) {
+    showToast('No se pudo reenviar el código. Intenta de nuevo.', 'error');
+  } finally {
+    setIsResending(false);
+  }
+};
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -118,39 +118,28 @@ const showToast = (message, type = 'success') => {
         setLoading(false); 
       }
     } catch (err) {
-      const mensajeError = err.response?.data?.message || 'El servidor no responde o hay un problema de conexión';
-      setError(mensajeError);
-    } finally {
+  const mensajeError = err.response?.data?.message || 'El servidor no responde o hay un problema de conexión';
+  setLoading(false); 
+  setError(mensajeError);
+}finally {
       
       setLoading(false);
     }
   };
 
   const handleVerifyCode = async () => {
-    try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/register/verify`, {
-        correo: formData.correo,
-        codigoIngresado: codigoIngresado,
-      });
-      alert('¡Registro completo! Bienvenido a la biblioteca.');
-      navigate('/login');
-    } catch (err) {
-      setError('Código incorrecto o expirado.');
-    }
-  };
-  {toast.visible && (
-  <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] flex items-center gap-4 px-6 py-4 rounded-2xl shadow-2xl text-white font-semibold text-sm transition-all duration-300 ${
-    toast.type === 'success' ? 'bg-green-500' : 'bg-red-500'
-  }`}>
-    <span>{toast.type === 'success' ? '✓' : '⚠️'} {toast.message}</span>
-    <button
-      onClick={() => setToast({ visible: false, message: '', type: '' })}
-      className="ml-2 text-white/70 hover:text-white transition-colors font-bold text-lg leading-none"
-    >
-      ✕
-    </button>
-  </div>
-)}
+  try {
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/register/verify`, {
+      correo: formData.correo,
+      codigoIngresado: codigoIngresado,
+    });
+    showToast('¡Registro completo! Bienvenido a la biblioteca.');
+    setTimeout(() => navigate('/login'), 2000); // ← espera que el usuario lo vea
+  } catch (err) {
+    setError('Código incorrecto o expirado.');
+  }
+};
+  
 
   return (
     <div className="min-h-screen bg-gray-50 pt-28 pb-12 flex justify-center px-4 font-sans">
@@ -334,6 +323,19 @@ const showToast = (message, type = 'success') => {
           </div>
         </div>
       )}
+      {toast.visible && (
+  <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] flex items-center gap-4 px-6 py-4 rounded-2xl shadow-2xl text-white font-semibold text-sm transition-all duration-300 ${
+    toast.type === 'success' ? 'bg-green-500' : 'bg-red-500'
+  }`}>
+    <span>{toast.type === 'success' ? '✓' : '⚠️'} {toast.message}</span>
+    <button
+      onClick={() => setToast({ visible: false, message: '', type: '' })}
+      className="ml-2 text-white/70 hover:text-white transition-colors font-bold text-lg leading-none"
+    >
+      ✕
+    </button>
+  </div>
+)}
     </div>
   );
 };
