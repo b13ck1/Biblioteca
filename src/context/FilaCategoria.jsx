@@ -7,7 +7,7 @@ const FilaCategoria = ({ categoria, libros }) => {
   const scroll = (direction) => {
     const { current } = scrollRef;
     if (current) {
-      // Desplazamos 300px (aprox una card + gap)
+      
       const scrollAmount = direction === 'left' ? -300 : 300;
       current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
@@ -33,7 +33,7 @@ const FilaCategoria = ({ categoria, libros }) => {
           </svg>
         </button>
 
-        {/* Contenedor con Scroll */}
+        
         <div 
           ref={scrollRef}
           className="flex overflow-x-auto gap-6 pb-6 scrollbar-hide snap-x scroll-smooth"
@@ -45,7 +45,7 @@ const FilaCategoria = ({ categoria, libros }) => {
           ))}
         </div>
 
-        {/* Botón Derecha */}
+        
         <button 
           onClick={() => scroll('right')}
           className="absolute right-[-20px] top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl rounded-full p-2 border border-gray-100 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block hover:bg-gray-50"

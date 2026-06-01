@@ -39,16 +39,15 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // Carga inicial — se ejecuta una vez al montar,
-  // sirve cuando el usuario ya estaba logueado (token en localStorage)
+
   useEffect(() => {
     if (getToken()) {
       fetchCart();
       fetchFavoritos();
     }
-  }, []); // <- sin dependencias, solo al montar
+  }, []); 
 
-  // Carga cuando el user cambia (login / logout)
+
   useEffect(() => {
     if (user) {
       fetchCart();
@@ -114,11 +113,10 @@ export const CartProvider = ({ children }) => {
 
   // ─── Favoritos ───────────────────────────────────────────────────────────
   const toggleFavorito = async (idLibro) => {
-    console.log('toggleFavorito llamado con:', idLibro); // ← agrega esto
+    console.log('toggleFavorito llamado con:', idLibro); 
     if (!user) return { needsLogin: true };
     try {
       const res = await axios.post(`${API}/favoritos/toggle`, { idLibro }, authHeaders());
-      console.log('Respuesta toggle:', res.data);
       if (res.data.action === 'added') {
   setFavoritos(curr => [...curr, idLibro]);
 } else {

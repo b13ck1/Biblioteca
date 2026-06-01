@@ -277,35 +277,40 @@ const Perfil = () => {
               </div>
             ) : (
               <div className="space-y-3">
-                {librosFavoritos.map(libro => (
-                  <div key={libro.idLibro} className="flex items-center gap-4 p-3 rounded-2xl hover:bg-gray-50 transition-colors group">
-                    <Link to={`/libro/${libro.idLibro}`}>
-                      <img src={libro.imagen} alt={libro.titulo}
-                        className="w-14 h-20 object-cover rounded-xl shadow-sm flex-shrink-0" />
-                    </Link>
-                    <div className="flex-1 min-w-0">
-                      <Link to={`/libro/${libro.idLibro}`}>
-                        <h4 className="font-bold text-gray-900 text-sm leading-tight line-clamp-2 hover:text-indigo-600 transition-colors">
-                          {libro.titulo}
-                        </h4>
-                      </Link>
-                      <p className="text-gray-400 text-xs italic mt-0.5">{libro.autor}</p>
-                      <p className="text-indigo-600 font-black text-sm mt-1">
-                        S/ {Number(libro.precio).toFixed(2)}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => handleQuitarFavorito(libro)}
-                      className="text-red-300 hover:text-red-500 transition-colors p-2 rounded-xl hover:bg-red-50 opacity-0 group-hover:opacity-100"
-                      title="Quitar de favoritos"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
-                  </div>
-                ))}
-              </div>
+  {librosFavoritos.map(libro => {
+    
+    const libroId = libro.idLibro || libro.IdLibro;
+    
+    return (
+      <div key={libroId} className="flex items-center gap-4 p-3 rounded-2xl hover:bg-gray-50 transition-colors group">
+        <Link to={`/libro/${libroId}`}>
+          <img src={libro.imagen} alt={libro.titulo}
+            className="w-14 h-20 object-cover rounded-xl shadow-sm flex-shrink-0" />
+        </Link>
+        <div className="flex-1 min-w-0">
+          <Link to={`/libro/${libroId}`}>
+            <h4 className="font-bold text-gray-900 text-sm leading-tight line-clamp-2 hover:text-indigo-600 transition-colors">
+              {libro.titulo}
+            </h4>
+          </Link>
+          <p className="text-gray-400 text-xs italic mt-0.5">{libro.autor}</p>
+          <p className="text-indigo-600 font-black text-sm mt-1">
+            S/ {Number(libro.precio).toFixed(2)}
+          </p>
+        </div>
+        <button
+          onClick={() => handleQuitarFavorito(libro)}
+          className="text-red-300 hover:text-red-500 transition-colors p-2 rounded-xl hover:bg-red-50 opacity-0 group-hover:opacity-100"
+          title="Quitar de favoritos"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    );
+  })}
+</div>
             )}
           </div>
         )}
